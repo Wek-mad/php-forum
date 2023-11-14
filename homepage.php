@@ -22,48 +22,52 @@ $query = "SELECT t.id, t.title,
 $stmt = $pdo->prepare($query);
 $stmt->execute();
 $topics = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+include("header.php");
 ?>
 
-<!DOCTYPE html>
-<html>
-
-<head>
-    <?php include("header.php") ?>
-    <title>Forum - Topics</title>
-</head>
-
 <body>
-    <h1>Welcome, <span>
-            <?php echo $_SESSION["username"]; ?>
-        </span></h1>
+    <main>
+        <h1>Welcome, <span>
+                <?php echo $_SESSION["username"]; ?>
+            </span></h1>
 
-    <div class="container">
-        <h2>Topics</h2>
-        <ul>
-            <?php foreach ($topics as $topic): ?>
-                <a href="topic.php?id=<?php echo $topic['id']; ?>">
-                    <li>
-                        <?php echo $topic['title']; ?>
-                        <small>(
-                            <?php echo $topic['question_count']; ?> questions,
-                            <?php echo $topic['reply_count']; ?> replies)
-                        </small>
-                        <?php if ($is_admin): ?>
-                            <form method="post" action="delete_topic.php?id=<?php echo $topic['id']; ?>">
-                                <input type="submit" name="delete_topic" value="Delete Topic">
-                            </form>
-                        <?php endif; ?>
-                    </li>
+        <div class="container">
+            <h2>Modules</h2>
+            <ul>
+                <?php foreach ($topics as $topic): ?>
+                    <div class="card">
+
+                        <a href="topic.php?id=<?php echo $topic['id']; ?>">
+                            <li>
+                                <div class="name">
+                                    <?php echo $topic['title']; ?>
+                                </div><small>(
+                                    <?php echo $topic['question_count']; ?> questions,
+                                    <?php echo $topic['reply_count']; ?> replies)
+                                </small>
+                                <?php if ($is_admin): ?>
+                                    <form method="post" action="delete_topic.php?id=<?php echo $topic['id']; ?>">
+                                        <input class="btn" type="submit" name="delete_topic" value="Delete Module">
+                                    </form>
+                                <?php endif; ?>
+                            </li>
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+
+        <?php if ($is_admin): ?>
+            <div class="center">
+                <a href="new_topic.php">
+                    <button class="btn">
+                        Create New Module
+                    </button>
                 </a>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-
-    <?php if ($is_admin): ?>
-        <a href="new_topic.php" class="create-topic">Create New Topic</a><br>
-    <?php endif; ?>
-
-    <a href="logout.php" class="logout">Logout</a>
+            </div>
+        <?php endif; ?>
+    </main>
 </body>
 
 </html>

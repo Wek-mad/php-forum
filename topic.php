@@ -114,7 +114,7 @@ if (isset($_POST["submit"])) {
 </head>
 
 <body>
-    <div class="header">
+    <div>
         <h1 class="topic-title">
             <?php echo $topic['title']; ?>
         </h1>
@@ -131,25 +131,25 @@ if (isset($_POST["submit"])) {
         <ul>
             <?php foreach ($questions as $question): ?>
                 <a href="question.php?id=<?php echo $question['id']; ?>">
-                    <li>
-                        <?php echo $question['title']; ?>
-                        <?php if ($question['last_reply_username'] && $question['last_reply_timestamp']): ?>
-                            <div>Last Reply by
-                                <?php echo $question['last_reply_username']; ?> on
-                                <?php echo $question['last_reply_timestamp']; ?>
+                <div class="card">
+                        <li>
+                            <div class="name">
+                                <?php echo $question['title']; ?>
                             </div>
-                        <?php else: ?>
-                            <div class="replies">No replies yet.</div>
-                        <?php endif; ?>
-                    </li>
+                            <?php if ($question['last_reply_username'] && $question['last_reply_timestamp']): ?>
+                                <div class="replies">
+                                    Last Reply by
+                                    <?php echo $question['last_reply_username']; ?> on
+                                    <?php echo $question['last_reply_timestamp']; ?>
+                                </div>
+                            <?php else: ?>
+                                <div class="replies">No replies yet.</div>
+                            <?php endif; ?>
+                        </li>
+                    </div>
                 </a>
             <?php endforeach; ?>
         </ul>
-
-        <div style="margin-top: 1rem;">
-            <a href="homepage.php">Back to Homepage</a><br>
-            <a href="logout.php" style="margin-top: 1rem; display: inline-block;" class="btn">Logout</a>
-        </div>
     </div>
 </body>
 
