@@ -62,7 +62,7 @@
 
 <body>
     <div class="user-list-content">
-        <h2>User List</h2>
+        <h1>User List</h1>
         <div class="table-container">
             <?php
             try {
